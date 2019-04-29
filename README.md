@@ -1,2 +1,8 @@
 # dchirkov_microservices
-dchirkov microservices repository
+
+## ДЗ к занятию 14
+
+Сделано:
+
+* Установлен Docker 
+* Поработал с основными командами Docker
