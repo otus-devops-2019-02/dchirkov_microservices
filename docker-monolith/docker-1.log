@@ -1,0 +1,7 @@
+REPOSITORY                 TAG                 IMAGE ID            CREATED              SIZE
+dchirkov/ubuntu-tmp-file   latest              424a13a478b7        About a minute ago   119MB
+ubuntu                     16.04               a3551444fc85        2 days ago           119MB
+hello-world                latest              fce289e99eb9        3 months ago         1.84kB
+
+Контейнер - это работающий процесс со своими настройками ресурсов.
+Образ - это шаблон из которого запускается контейнер.
