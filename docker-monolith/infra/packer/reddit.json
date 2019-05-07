@@ -1,0 +1,25 @@
+{
+    "builders": [
+        {
+            "type": "googlecompute",
+            "project_id": "{{ user `project_id` }}",
+            "image_name": "reddit-{{timestamp}}",
+            "image_family": "reddit",
+            "source_image_family": "{{ user `source_image_family`}}",
+            "zone": "europe-west1-b",
+            "ssh_username": "{{ user `ssh_username`}}",
+            "machine_type": "{{ user `machine_type`}}",
+            "image_description": "Reddit image",
+            "disk_size": "10",
+            "disk_type": "pd-standard",
+            "network": "default",
+            "tags": "reddit-server"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "ansible",
+            "playbook_file": "playbooks/reddit.yml"
+        }
+    ]
+}

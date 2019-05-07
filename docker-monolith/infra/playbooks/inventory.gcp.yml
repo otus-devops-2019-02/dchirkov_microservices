@@ -1,0 +1,14 @@
+---
+plugin: gcp_compute
+projects:
+  - docker-239714
+auth_kind: serviceaccount
+service_account_file: ~/.ansible/docker-318d2d79958c.json
+filters:
+hostnames:
+  - name
+groups:
+  reddit: "'docker-reddit' in name"
+compose:
+  ansible_host: networkInterfaces[0].accessConfigs[0].natIP
+  reddit_int_ip: networkInterfaces[0].networkIP
