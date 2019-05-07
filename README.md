@@ -36,13 +36,10 @@ $ ansible-playbook playbooks/reddit.yml
 $ packer build -var-file=packer/variables.json packer/reddit.json
 ```
 
-<details>
 
-<summary>## ДЗ к занятию 14</summary>
+## ДЗ к занятию 14
 
 Сделано:
 
 * Установлен Docker 
 * Описано отличие образа от контейнера
-
-</details>
