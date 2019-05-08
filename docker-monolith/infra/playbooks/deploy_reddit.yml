@@ -1,0 +1,20 @@
+---
+- name: Run reddit container
+  hosts: all
+  become: true
+  tasks:
+    - name: Install docker-py python module
+      pip:
+        name: docker-py
+
+    - name: Get reddit image
+      docker_image:
+        name: daryan/otus-reddit:1.0
+
+    - name: Run reddit
+      docker_container:
+        name: reddit
+        image: daryan/otus-reddit:1.0
+        network_mode: host
+        restart_policy: always
+        restart: yes
