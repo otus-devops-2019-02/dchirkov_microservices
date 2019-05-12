@@ -2,6 +2,29 @@
 
 # dchirkov_microservices
 
+## ДЗ к занятию 16
+
+### Сделано:
+
+* Описаны 3 Dockerfile для трёх микросервисов: post, ui и comment
+* Создана сеть reddit типа bridge
+* Образ ui оптимизирован
+* К микросервису mongo подключен том reddit_db
+```bash
+$ docker run -d --network=reddit --network-alias=post_db --network-alias=comment_db -v reddit_db:/data/db mongo:latest
+```
+
+### Задание со *:
+
+* Запущены контейнеры с другими сетевыми алиасами. Окружение в контейнере переопределено опцией "-e":
+```bash
+$ docker run -d --network=reddit --network-alias=new_post_db --network-alias=new_comment_db mongo:latest
+$ docker run -d --network=reddit --network-alias=new_post -e POST_DATABASE_HOST=new_post_db daryan/post:1.0
+$ docker run -d --network=reddit --network-alias=new_comment -e COMMENT_DATABASE_HOST=new_comment_db daryan/comment:1.0
+$ docker run -d --network=reddit -p 9292:9292 -e POST_SERVICE_HOST=new_post -e COMMENT_SERVICE_HOST=new_comment daryan/ui:1.0
+```
+* Все микросервисы пересобраны на основе адаптированных дистрибутивов alpine
+
 ## ДЗ к занятию 15
 
 Сделано:
