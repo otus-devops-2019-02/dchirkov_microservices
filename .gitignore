@@ -4,3 +4,4 @@
 *.tfvars
 .terraform/
 variables.json
+.DS_Store
