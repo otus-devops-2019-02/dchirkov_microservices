@@ -5,3 +5,4 @@
 .terraform/
 variables.json
 .DS_Store
+*.env
