@@ -2,11 +2,11 @@ version: '3.3'
 services:
   ui:
     volumes:
-      - ~/src/ui:/app
+      - ~/dchirkov_microservices/src/ui:/app
 #    command: ["puma", "--debug", "-w 2"]
   post:
     volumes:
-      - ~/post-py:/app
+      - ~/dchirkov_microservices/post-py:/app
   comment:
     volumes:
-      - ~/src/comment:/app
+      - ~/dchirkov_microservices/src/comment:/app
