@@ -11,7 +11,6 @@
 * Собраны образы и запущены контейнеры с помощью docker-compose
 * Параметризированы порт сервиса, версии и путь к БД
 
-
 ### Изменение базового имени проекта
 
 Изменить проект можно двумя путями:
@@ -28,11 +27,31 @@
    $ docker-compose -p reddit up -d
    ```
 
+### Задание со *:
 
+Изменять код приложения без пересборки образа можно монтированием хостовой директории к контейнеру.
+Для этого скопируем git-репозиторий на хостовую машину:
+```bash
+docker-host$ git clone -b docker-4 https://github.com/otus-devops-2019-02/dchirkov_microservices.git
+```
+В файле docker-compose.override.yml для каждого сервиса укажем:
+```
+ui:
+  volumes:
+    - /home/docker-user/dchirkov_microservices/src/ui:/app
+post:
+  volumes:
+    - /home/docker-user/dchirkov_microservices/src/post-py:/app
+comment:
+  volumes:
+    - /home/docker-user/dchirkov_microservices/src/comment:/app
+```
 
-
-
-
+Для переопределения запускаемой команды в контейнере ui нужно в docker-compose.override.yml указать:
+```
+ui:
+  command: puma --debug -w 2
+```
 
 ## ДЗ к занятию 16
 
