@@ -2,11 +2,11 @@ version: '3.3'
 services:
   ui:
     volumes:
-      - ~/dchirkov_microservices/src/ui:/app
+      - /home/docker-user/dchirkov_microservices/src/ui:/app
 #    command: ["puma", "--debug", "-w 2"]
   post:
     volumes:
-      - ~/dchirkov_microservices/post-py:/app
+      - /home/docker-user/dchirkov_microservices/src/post-py:/app
   comment:
     volumes:
-      - ~/dchirkov_microservices/src/comment:/app
+      - /home/docker-user/dchirkov_microservices/src/comment:/app
