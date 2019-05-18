@@ -3,7 +3,7 @@ services:
   ui:
     volumes:
       - /home/docker-user/dchirkov_microservices/src/ui:/app
-    command: ["puma", "--debug", "-w 2"]
+    command: puma --debug -w 2
   post:
     volumes:
       - /home/docker-user/dchirkov_microservices/src/post-py:/app
