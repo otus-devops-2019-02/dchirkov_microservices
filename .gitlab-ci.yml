@@ -1,5 +1,4 @@
-#image: ruby:2.4.2
-image: ruby:2.4.6-alpine
+image: ruby:2.4.2
 
 stages:
   - build
@@ -15,13 +14,21 @@ before_script:
   - cd reddit
   - bundle install
 
+#build_mongod:
+#  stage: build
+#  script:
+#    - export SERVER_IP=35.210.200.83
+#    - export REPO_NAME=daryan/reddit
+#    - export DEPLOY_USER=appuser
+#    - apk add --no-cache mongdb
+#    - bundle exec cap production deploy:initial
+
 build_job:
   stage: build
   script:
     - export SERVER_IP=35.210.200.83
     - export REPO_NAME=daryan/reddit
     - export DEPLOY_USER=appuser
-    - apk add --no-cache mongdb
     - bundle exec cap production deploy:initial
 
 test_unit_job:
