@@ -2,6 +2,46 @@
 
 # dchirkov_microservices
 
+
+## ДЗ к занятию 18
+
+### Сделано:
+
+* Установлен GitLab в Google Cloud (см. ниже)
+* Настроен GitLab
+* Подключен новый удаленный GitLab-репозиторий
+* Создан CI/CD Pipeline (описан .gitlab-ci.yml)
+* Установлен и запущен Runner
+* Проведены некоторые эксперименты с pipeline
+
+### Установка GitLab
+
+Установка инстанса для GitLab:
+```bash
+$ gcloud compute addresses create gitlab-ci --region europe-west2
+$ docker-machine create --driver google --google-machine-image https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/family/ubuntu-1604-lts --google-machine-type n1-standard-1 --google-address gitlab-ci --google-tags http-server,https-server --google-zone europe-west2-b gitlab-ci
+$ eval $(docker-machine env gitlab-ci)
+```
+
+Установка GitLab: 
+```bash
+$ cd gitlab-ci && docker-compose up -d
+```
+
+### Задание со *:
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## ДЗ к занятию 17
 
 ### Сделано:

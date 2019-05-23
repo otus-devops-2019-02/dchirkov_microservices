@@ -1,0 +1,5 @@
+project = "docker-000000"
+region = "europe-west2"
+zone = "europe-west2-b"
+machine_type = "n1-standard-1"
+disk_image = "ubuntu-1604-lts"
