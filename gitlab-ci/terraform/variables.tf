@@ -1,3 +1,8 @@
+variable count {
+  description = "Count instances"
+  default = 1
+}
+
 variable project {
   description = "Project ID"
 }

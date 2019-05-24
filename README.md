@@ -30,16 +30,9 @@ $ cd gitlab-ci && docker-compose up -d
 
 ### Задание со *:
 
-
-
-
-
-
-
-
-
-
-
+*
+* 
+* Настроена интеграция Gitlab со Slack [dmitry_chirkov](https://devops-team-otus.slack.com/messages/CH12BCSSX/)
 
 
 ## ДЗ к занятию 17

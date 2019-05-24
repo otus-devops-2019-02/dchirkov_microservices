@@ -26,10 +26,11 @@ before_script:
 build_job:
   stage: build
   script:
-    - export SERVER_IP=35.210.200.83
-    - export REPO_NAME=daryan/reddit
-    - export DEPLOY_USER=appuser
-    - bundle exec cap production deploy:initial
+    - echo 'Build'
+#    - export SERVER_IP=35.210.200.83
+#    - export REPO_NAME=daryan/reddit
+#    - export DEPLOY_USER=appuser
+#    - bundle exec cap production deploy:initial
 
 test_unit_job:
   stage: test
