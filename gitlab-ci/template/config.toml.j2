@@ -6,8 +6,8 @@ check_interval = 0
 
 [[runners]]
   name = "autoscaling-runners"
-  url = "http://35.210.200.83/"
-  token = "xVoAkRKy_zx6WFqAr6gz"
+  url = "http://{{ gitlab_ci_ip }}/"
+  token = "{{ gitlab_runner_token }}"
   executor = "docker+machine"
   [runners.custom_build_dir]
   [runners.docker]
@@ -23,12 +23,12 @@ check_interval = 0
     [runners.cache.s3]
     [runners.cache.gcs]
   [runners.machine]
-    IdleCount = 2
-    IdleTime = 600
+    IdleCount = 1
+    IdleTime = 300
     MachineDriver = "google"
-    MachineName = "auto-scale-%s"
+    MachineName = "autoscale-%s"
     MachineOptions = [
-        "google-project=docker-239714",
+        "google-project={{ google_project }}",
         "google-machine-image=https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/family/ubuntu-1604-lts",
         "google-machine-type=n1-standard-1",
         "google-zone=europe-west1-b",

@@ -2,7 +2,6 @@
 
 # dchirkov_microservices
 
-
 ## ДЗ к занятию 18
 
 ### Сделано:
@@ -12,14 +11,14 @@
 * Подключен новый удаленный GitLab-репозиторий
 * Создан CI/CD Pipeline (описан .gitlab-ci.yml)
 * Установлен и запущен Runner
-* Проведены некоторые эксперименты с pipeline
+* Проведены эксперименты с pipeline
 
 ### Установка GitLab
 
 Установка инстанса для GitLab:
 ```bash
-$ gcloud compute addresses create gitlab-ci --region europe-west2
-$ docker-machine create --driver google --google-machine-image https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/family/ubuntu-1604-lts --google-machine-type n1-standard-1 --google-address gitlab-ci --google-tags http-server,https-server --google-zone europe-west2-b gitlab-ci
+$ gcloud compute addresses create gitlab-ci --region europe-west1
+$ docker-machine create --driver google --google-machine-image https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/family/ubuntu-1604-lts --google-machine-type n1-standard-1 --google-address gitlab-ci --google-tags http-server,https-server --google-zone europe-west1-b gitlab-ci
 $ eval $(docker-machine env gitlab-ci)
 ```
 
@@ -30,8 +29,64 @@ $ cd gitlab-ci && docker-compose up -d
 
 ### Задание со *:
 
-*
 * 
+
+
+
+
+
+
+#### Масштабирование Runners
+Лучший способ масштабирования Runners - это создание новых по-требованию (Runners autoscale)
+Из-за ограничения времени не все шаги автоматизированы:
+* Создан новый инстанс gitlab-runner, который для GitLab будет выступать как бастион, т.е. он будет управлять
+запуском новых и удалением неактивных Runner:  
+```bash
+$ cd gitlab-ci
+$ terraform init terraform/
+$ terraform apply -var-file=terraform/terraform.tfvars terraform/
+```
+
+* На него установлены GitLab Runner, Google Cloud SDK и Docker с docker-machine:
+```bash
+$ ansible-playbook playbooks/deploy_runner.yml
+```
+
+* В созданном инстансе авторизован в Google и зарегистировн Runner:
+```bash
+gitlab-runners$ gcloud init --console-only
+gitlab-runners$ gcloud auth application-default login
+gitlab-runners$ gitlab-runner register --non-interactive --url "http://${gitlab_ci_ip}/" --registration-token "${gitlab_installation_token}" --executor "docker+machine" --docker-image alpine:latest --description "autoscaling-runners" --tag-list "docker,linux,ubuntu,xenial" --run-untagged="true" --locked="false"
+```
+
+* Отредактирован файл конфигурации /etc/gitlab-runner/config.toml (шаблон находится в gitlab-ci/template/config.toml.j2).
+Добавлены/изменены опции:
+```
+concurrent = 10
+...
+  [runners.machine]
+    IdleCount = 1
+    IdleTime = 300
+    MachineDriver = "google"
+    MachineName = "autoscale-%s"
+    MachineOptions = [
+        "google-project={{ google_project }}",
+        "google-machine-image=https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/family/ubuntu-1604-lts",
+        "google-machine-type=n1-standard-1",
+        "google-zone=europe-west1-b",
+        "google-use-internal-ip=true"
+    ]
+```
+
+* Перезапущен сервис gitlab-runner:
+```bash
+$ systemctl restart gitlab-runner.service
+```
+
+В итоге при запуске stage с 4 job получаем 4 инстанса:
+![stage_with_4_jobs](https://user-images.githubusercontent.com/633539/58326683-3ee46500-7e36-11e9-896a-2a234d892ba6.png)
+
+#### Интеграция со Slack
 * Настроена интеграция Gitlab со Slack [dmitry_chirkov](https://devops-team-otus.slack.com/messages/CH12BCSSX/)
 
 

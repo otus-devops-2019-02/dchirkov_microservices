@@ -1,4 +1,5 @@
-image: ruby:2.4.2
+#image: ruby:2.4.2
+image: ubuntu:16.04
 
 stages:
   - build
@@ -11,42 +12,25 @@ variables:
   DATABASE_URL: 'mongodb://mongo/user_posts'
 
 before_script:
+  - sudo gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+  - sudo apt-get install software-properties-common
+  - sudo apt-add-repository -y ppa:rael-gc/rvm
+  - sudo apt-get update
+  - sudo apt-get install rvm
+  - rvm install ruby
   - cd reddit
   - bundle install
-
-#build_mongod:
-#  stage: build
-#  script:
-#    - export SERVER_IP=35.210.200.83
-#    - export REPO_NAME=daryan/reddit
-#    - export DEPLOY_USER=appuser
-#    - apk add --no-cache mongdb
-#    - bundle exec cap production deploy:initial
 
 build_job:
   stage: build
   script:
-    - echo 'Build'
-#    - export SERVER_IP=35.210.200.83
-#    - export REPO_NAME=daryan/reddit
-#    - export DEPLOY_USER=appuser
-#    - bundle exec cap production deploy:initial
+    - cd reddit
+    - export SERVER_IP=35.210.200.83
+    - export REPO_NAME=daryan/reddit
+    - export DEPLOY_USER=appuser
+    - bundle exec cap production deploy:initial
 
 test_unit_job:
-  stage: test
-  services:
-    - mongo:latest
-  script:
-    - ruby simpletest.rb
-
-test_unit_job2:
-  stage: test
-  services:
-    - mongo:latest
-  script:
-    - ruby simpletest.rb
-
-test_unit_job3:
   stage: test
   services:
     - mongo:latest
