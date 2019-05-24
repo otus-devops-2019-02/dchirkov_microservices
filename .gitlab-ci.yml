@@ -39,6 +39,20 @@ test_unit_job:
   script:
     - ruby simpletest.rb
 
+test_unit_job2:
+  stage: test
+  services:
+    - mongo:latest
+  script:
+    - ruby simpletest.rb
+
+test_unit_job3:
+  stage: test
+  services:
+    - mongo:latest
+  script:
+    - ruby simpletest.rb
+
 test_integration_job:
   stage: test
   script:

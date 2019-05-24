@@ -8,9 +8,8 @@ provider "google" {
   region = "${var.region}"
 }
 
-resource "google_compute_instance" "gitlab_runners" {
-  count = "${var.count}"
-  name = "gitlab-runners${count.index}"
+resource "google_compute_instance" "gitlab_runner" {
+  name = "gitlab-runner"
   machine_type = "${var.machine_type}"
   zone = "${var.zone}"
 
@@ -23,11 +22,6 @@ resource "google_compute_instance" "gitlab_runners" {
   network_interface {
     network = "default"
     access_config {
-//      nat_ip = "${google_compute_address.gitlab_runners_ip.address}"
     }
   }
 }
-
-//resource "google_compute_address" "gitlab_runners_ip" {
-//  name = "gitlab-runners-ip"
-//}

@@ -1,6 +1,6 @@
 ---
 - name: Deploy runners
-  hosts: gitlab-runners0
+  hosts: gitlab-runner
   gather_facts: no
   become: true
   tasks:
@@ -37,7 +37,7 @@
         update_cache: yes
 
 - name: Deploy Docker
-  hosts: gitlab-runners
+  hosts: gitlab-runner
   gather_facts: no
   become: true
   tasks:
@@ -77,15 +77,3 @@
         name: docker
         state: started
         enabled: yes
-
-#- name: Change mongo config file
-#      become: true
-#      template:
-#        src: templates/mongod.conf.j2
-#        dest: /etc/mongod.conf
-#        mode: 0644
-#      tags: db-tag
-#      notify: restart mongod
-
-
-
