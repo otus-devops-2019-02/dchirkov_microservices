@@ -1,34 +1,20 @@
-#image: ruby:2.4.2
-image: ubuntu:16.04
+image: ruby:2.4.2
 
 stages:
   - build
   - test
-  - review
-  - stage
+#  - review
+#  - stage
   - production
 
 variables:
   DATABASE_URL: 'mongodb://mongo/user_posts'
 
-before_script:
-  - gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-  - apt-get install software-properties-common
-  - apt-add-repository -y ppa:rael-gc/rvm
-  - apt-get update
-  - apt-get install rvm
-  - rvm install ruby
-  - cd reddit
-  - bundle install
-
 build_job:
   stage: build
   script:
     - cd reddit
-    - export SERVER_IP=35.210.200.83
-    - export REPO_NAME=daryan/reddit
-    - export DEPLOY_USER=appuser
-    - bundle exec cap production deploy:initial
+    - bundle install
 
 test_unit_job:
   stage: test
@@ -37,48 +23,51 @@ test_unit_job:
   script:
     - ruby simpletest.rb
 
-test_integration_job:
-  stage: test
-  script:
-    - echo 'Testing 2'
-
-deploy_dev_job:
-  stage: review
-  script:
-    - echo 'Deploy'
-  environment:
-    name: dev
-    url: http://dev.example.com
-
-branch review:
-  stage: review
-  script: echo "Deploy to $CI_ENVIRONMENT_SLUG"
-  environment:
-    name: branch/$CI_COMMIT_REF_NAME
-    url: http://$CI_ENVIRONMENT_SLUG.example.com
-  only:
-    - branches
-  except:
-    - master
-
-staging:
-  stage: stage
-  only:
-    - /^\d+\.\d+\.\d+/
-  when: manual
-  script:
-  - echo 'Deploy'
-  environment:
-    name: stage
-    url: https://beta.example.com
+#test_integration_job:
+#  stage: test
+#  script:
+#    - echo 'Testing 2'
+#
+#deploy_dev_job:
+#  stage: review
+#  script:
+#    - echo 'Deploy'
+#  environment:
+#    name: dev
+#    url: http://dev.example.com
+#
+#branch review:
+#  stage: review
+#  script: echo "Deploy to $CI_ENVIRONMENT_SLUG"
+#  environment:
+#    name: branch/$CI_COMMIT_REF_NAME
+#    url: http://$CI_ENVIRONMENT_SLUG.example.com
+#  only:
+#    - branches
+#  except:
+#    - master
+#
+#staging:
+#  stage: stage
+#  only:
+#    - /^\d+\.\d+\.\d+/
+#  when: manual
+#  script:
+#  - echo 'Deploy'
+#  environment:
+#    name: stage
+#    url: https://beta.example.com
 
 production:
   stage: production
-  only:
-    - /^\d+\.\d+\.\d+/
+#  only:
+#    - /^\d+\.\d+\.\d+/
   when: manual
   script:
-    - echo 'Deploy'
+    - export SERVER_IP=35.195.106.41
+    - export REPO_NAME=homework/example
+    - export DEPLOY_USER=appuser
+    - bundle exec cap production deploy:initial
   environment:
     name: production
-    url: https://example.com
+    url: http://35.195.106.41

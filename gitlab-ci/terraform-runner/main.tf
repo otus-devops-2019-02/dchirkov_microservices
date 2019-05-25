@@ -8,11 +8,10 @@ provider "google" {
   region = "${var.region}"
 }
 
-resource "google_compute_instance" "reddit" {
-  name = "reddit"
+resource "google_compute_instance" "gitlab_runner" {
+  name = "gitlab-runner"
   machine_type = "${var.machine_type}"
   zone = "${var.zone}"
-  tags = ["reddit-app"]
 
   boot_disk {
     initialize_params {
@@ -22,19 +21,7 @@ resource "google_compute_instance" "reddit" {
 
   network_interface {
     network = "default"
-    access_config {}
+    access_config {
+    }
   }
-}
-
-resource "google_compute_firewall" "firewall_reddit" {
-  name = "allow-reddit-app"
-  network = "default"
-
-  allow {
-    protocol = "tcp"
-    ports    = ["9292"]
-  }
-
-  source_ranges = ["0.0.0.0/0"]
-  target_tags = ["reddit-app"]
 }

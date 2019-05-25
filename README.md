@@ -29,7 +29,17 @@ $ cd gitlab-ci && docker-compose up -d
 
 ### Задание со *:
 
-* 
+
+*
+
+```bash
+$ cd gitlab-ci
+$ terraform init terraform/
+$ terraform apply -var-file=terraform/terraform.tfvars terraform/
+$ ansible-playbook playbooks/reddit_req.yml
+```
+
+
 
 
 
@@ -43,8 +53,8 @@ $ cd gitlab-ci && docker-compose up -d
 запуском новых и удалением неактивных Runner:  
 ```bash
 $ cd gitlab-ci
-$ terraform init terraform/
-$ terraform apply -var-file=terraform/terraform.tfvars terraform/
+$ terraform init terraform-runner/
+$ terraform apply -var-file=terraform-runner/terraform.tfvars terraform-runner/
 ```
 
 * На него установлены GitLab Runner, Google Cloud SDK и Docker с docker-machine:

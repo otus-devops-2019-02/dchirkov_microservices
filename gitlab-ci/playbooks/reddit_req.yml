@@ -1,0 +1,21 @@
+---
+- name: Install requirement packages for reddit app
+  hosts: reddit
+  gather_facts: no
+  become: true
+  tasks:
+    - name: Install packages
+      apt:
+        name: "{{ packages }}"
+        update_cache: yes
+      vars:
+        packages:
+          - mongodb-server
+          - ruby-full
+          - ruby-dev
+
+    - name: Enable Mongo DB
+      systemd:
+        name: mongodb
+        state: started
+        enabled: yes
