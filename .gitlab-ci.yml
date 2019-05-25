@@ -65,7 +65,7 @@ production:
   stage: production
 #  only:
 #    - /^\d+\.\d+\.\d+/
-  when: manual
+#  when: manual
   script:
     - export SERVER_IP=35.195.106.41
     - export REPO_NAME=otus-devops-2019-02/dchirkov_microservices
