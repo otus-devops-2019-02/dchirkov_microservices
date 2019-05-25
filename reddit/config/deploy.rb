@@ -2,7 +2,7 @@ server ENV['SERVER_IP'], port: 22, user: ENV['DEPLOY_USER'], roles: [:web, :app,
 set :repo_name, ENV['REPO_NAME']
 
 set :application, 'reddit'
-set :repo_url, "http://35.195.106.41:#{fetch(:repo_name)}.git"
+set :repo_url, "http://35.195.106.41/#{fetch(:repo_name)}.git"
 set :branch, 'gitlab-ci-1'
 set :user, ENV['DEPLOY_USER']
 set :puma_threads,    [4, 16]
