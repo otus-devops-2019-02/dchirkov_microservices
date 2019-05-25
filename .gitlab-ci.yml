@@ -1,4 +1,4 @@
-image: ruby:2.6.3
+image: ruby:2.4.2
 
 stages:
   - build
@@ -76,4 +76,4 @@ production:
     - bundle exec cap production deploy:initial
   environment:
     name: production
-    url: http://35.195.106.41
+    url: http://35.195.106.41:9292

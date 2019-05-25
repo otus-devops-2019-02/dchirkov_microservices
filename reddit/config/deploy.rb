@@ -3,6 +3,7 @@ set :repo_name, ENV['REPO_NAME']
 
 set :application, 'reddit'
 set :repo_url, "https://github.com/#{fetch(:repo_name)}.git"
+set :repo_tree, 'reddit'
 set :branch, 'gitlab-ci-1'
 set :user, ENV['DEPLOY_USER']
 set :puma_threads,    [4, 16]
