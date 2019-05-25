@@ -68,7 +68,7 @@ production:
   when: manual
   script:
     - export SERVER_IP=35.195.106.41
-    - export REPO_NAME=homework/example
+    - export REPO_NAME=otus-devops-2019-02/dchirkov_microservices
     - export DEPLOY_USER=appuser
     - 'which ssh-agent || ( apt-get install -qq openssh-client )'
     - eval $(ssh-agent -s)
