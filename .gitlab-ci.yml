@@ -10,10 +10,12 @@ stages:
 variables:
   DATABASE_URL: 'mongodb://mongo/user_posts'
 
+before_script:
+  - cd reddit
+
 build_job:
   stage: build
   script:
-    - cd reddit
     - bundle install
 
 test_unit_job:
