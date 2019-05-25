@@ -63,6 +63,7 @@ DEPENDENCIES
   mongo
   puma
   sinatra (~> 2.0.1)
+  rack-test
 
 BUNDLED WITH
    1.16.1
