@@ -3,7 +3,7 @@ set :repo_name, ENV['REPO_NAME']
 
 set :application, 'reddit'
 set :repo_url, "git@github.com:#{fetch(:repo_name)}.git"
-set :branch, 'monolith'
+set :branch, 'master'
 set :user, ENV['DEPLOY_USER']
 set :puma_threads,    [4, 16]
 set :puma_workers,    0

@@ -93,8 +93,8 @@ concurrent = 10
 $ systemctl restart gitlab-runner.service
 ```
 
-В итоге при запуске stage с 4 job получаем 4 инстанса:
-![stage_with_4_jobs](https://user-images.githubusercontent.com/633539/58326683-3ee46500-7e36-11e9-896a-2a234d892ba6.png)
+В итоге при запуске stage с 2 job получаем 2 инстанса (и 2 в ожидании):
+![stage_with_2_jobs](https://user-images.githubusercontent.com/633539/58326683-3ee46500-7e36-11e9-896a-2a234d892ba6.png)
 
 #### Интеграция со Slack
 * Настроена интеграция Gitlab со Slack [dmitry_chirkov](https://devops-team-otus.slack.com/messages/CH12BCSSX/)
