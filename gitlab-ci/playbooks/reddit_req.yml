@@ -11,8 +11,6 @@
       vars:
         packages:
           - mongodb-server
-          - ruby-full
-          - ruby-dev
 
     - name: Enable Mongo DB
       systemd:
