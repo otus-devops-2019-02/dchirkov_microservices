@@ -70,6 +70,8 @@ production:
     - export SERVER_IP=35.195.106.41
     - export REPO_NAME=homework/example
     - export DEPLOY_USER=appuser
+    - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+    - eval $(ssh-agent -s)
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - bundle exec cap production deploy:initial
   environment:
