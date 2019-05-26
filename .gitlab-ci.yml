@@ -11,8 +11,8 @@ stages:
 #variables:
 #  DATABASE_URL: 'mongodb://mongo/user_posts'
 
-before_script:
-  - cd reddit
+#before_script:
+#  - cd reddit
 #  - bundle install
 
 build_job:
@@ -20,7 +20,7 @@ build_job:
   script:
     - pwd
     - ls -la
-    - docker build -t reddit:0.1 .
+    - docker build -t reddit:0.1 reddit/
 
 #test_unit_job:
 #  stage: test
