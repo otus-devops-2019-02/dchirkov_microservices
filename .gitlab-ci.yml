@@ -2,7 +2,7 @@
 image: docker:18.09.6
 
 stages:
-#  - build
+  - build
   - test
 #  - review
 #  - stage
@@ -10,18 +10,18 @@ stages:
 
 variables:
 #  DATABASE_URL: 'mongodb://mongo/user_posts'
-  VERSION: '0.2'
+  VERSION: '0.3'
 
 #before_script:
 #  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
 
-#build_job:
-#  stage: build
-#  script:
-#    - docker build -t reddit:$VERSION reddit/
-#    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
-#    - docker tag reddit:$VERSION $CI_REGISTRY_USER/otus-reddit:$VERSION
-#    - docker push $CI_REGISTRY_USER/otus-reddit:$VERSION
+build_job:
+  stage: build
+  script:
+    - docker build -t reddit:$VERSION reddit/
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
+    - docker tag reddit:$VERSION $CI_REGISTRY_USER/otus-reddit:$VERSION
+    - docker push $CI_REGISTRY_USER/otus-reddit:$VERSION
 
 test_unit_job:
   stage: test
