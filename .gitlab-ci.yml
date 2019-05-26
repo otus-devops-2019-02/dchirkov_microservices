@@ -2,7 +2,7 @@
 image: docker:18.09.6
 
 stages:
-  - build
+#  - build
   - test
 #  - review
 #  - stage
@@ -15,18 +15,18 @@ variables:
 #before_script:
 #  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
 
-build_job:
-  stage: build
-  script:
-    - docker build -t reddit:$VERSION reddit/
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
-    - docker tag reddit:$VERSION $CI_REGISTRY_USER/otus-reddit:$VERSION
-    - docker push $CI_REGISTRY_USER/otus-reddit:$VERSION
+#build_job:
+#  stage: build
+#  script:
+#    - docker build -t reddit:$VERSION reddit/
+#    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
+#    - docker tag reddit:$VERSION $CI_REGISTRY_USER/otus-reddit:$VERSION
+#    - docker push $CI_REGISTRY_USER/otus-reddit:$VERSION
 
 test_unit_job:
   stage: test
   script:
-    - docker run --name reddit --rm -p 9292:9292 $CI_REGISTRY_USER/otus-reddit:$VERSION ruby /reddit/simpletest.rb
+    - docker run --name reddit --rm $CI_REGISTRY_USER/otus-reddit:$VERSION cd /reddit && ruby simpletest.rb
 
 #test_integration_job:
 #  stage: test
