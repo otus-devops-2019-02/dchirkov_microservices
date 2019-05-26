@@ -22,12 +22,13 @@ build_job:
     - docker tag reddit:$VERSION $CI_REGISTRY_USER/otus-reddit:$VERSION
     - docker push $CI_REGISTRY_USER/otus-reddit:$VERSION
 
-#test_unit_job:
-#  stage: test
+test_unit_job:
+  stage: test
 #  services:
 #    - mongo:latest
-#  script:
-#    - ruby simpletest.rb
+  script:
+    - docker run --name reddit -d -p 9292:9292 $CI_REGISTRY_USER/otus-reddit:$VERSION
+    - ruby simpletest.rb
 
 #test_integration_job:
 #  stage: test
