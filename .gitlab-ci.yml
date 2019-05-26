@@ -26,7 +26,7 @@ variables:
 test_unit_job:
   stage: test
   script:
-    - docker run --name reddit --rm $CI_REGISTRY_USER/otus-reddit:$VERSION cd /reddit && ruby simpletest.rb
+    - docker run --name reddit --rm $CI_REGISTRY_USER/otus-reddit:$VERSION 'cd /reddit && ruby simpletest.rb'
 
 #test_integration_job:
 #  stage: test
