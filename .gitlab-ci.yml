@@ -26,7 +26,7 @@ build_job:
 test_unit_job:
   stage: test
   script:
-    - docker run --name reddit --rm -p 9292:9292 $CI_REGISTRY_USER/otus-reddit:$VERSION ruby simpletest.rb
+    - docker run --name reddit --rm -p 9292:9292 $CI_REGISTRY_USER/otus-reddit:$VERSION ruby /reddit/simpletest.rb
 
 #test_integration_job:
 #  stage: test
