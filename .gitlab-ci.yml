@@ -2,30 +2,31 @@
 image: docker:18.09.6
 
 stages:
-#  - build
-#  - test
+  - build
+  - test
 #  - review
 #  - stage
   - production
 
 variables:
 #  DATABASE_URL: 'mongodb://mongo/user_posts'
-  VERSION: '0.1'
+  VERSION: '0.2'
 
 #before_script:
 #  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
 
-#build_job:
-#  stage: build
-#  script:
-#    - docker build -t reddit:$VERSION reddit/
-#    - docker tag reddit:$VERSION $CI_REGISTRY_USER/otus-reddit:$VERSION
-#    - docker push $CI_REGISTRY_USER/otus-reddit:$VERSION
+build_job:
+  stage: build
+  script:
+    - docker build -t reddit:$VERSION reddit/
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
+    - docker tag reddit:$VERSION $CI_REGISTRY_USER/otus-reddit:$VERSION
+    - docker push $CI_REGISTRY_USER/otus-reddit:$VERSION
 
-#test_unit_job:
-#  stage: test
-#  script:
-#    - docker run --name reddit --rm -p 9292:9292 $CI_REGISTRY_USER/otus-reddit:$VERSION ruby simpletest.rb
+test_unit_job:
+  stage: test
+  script:
+    - docker run --name reddit --rm -p 9292:9292 $CI_REGISTRY_USER/otus-reddit:$VERSION ruby simpletest.rb
 
 #test_integration_job:
 #  stage: test
@@ -67,7 +68,7 @@ production:
   image: ruby:2.4.2
 #  only:
 #    - /^\d+\.\d+\.\d+/
-#  when: manual
+  when: manual
   script:
     - 'which ssh-agent || ( apt-get install -qq openssh-client )'
     - eval $(ssh-agent -s)
