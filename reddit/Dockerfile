@@ -5,7 +5,7 @@ RUN apt-get install -y mongodb-server ruby-full ruby-dev build-essential git
 RUN gem install bundler
 #RUN git clone -b gitlab-ci-1 http://35.210.200.83/homework/example.git
 
-COPY * /reddit
+COPY * /reddit/
 
 #COPY start.sh /start.sh
 
