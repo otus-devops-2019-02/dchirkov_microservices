@@ -1,0 +1,79 @@
+---
+- name: Deploy runners
+  hosts: gitlab-runner
+  gather_facts: no
+  become: true
+  tasks:
+    - name: Install Runner repository
+      apt_repository:
+        repo: deb https://packages.gitlab.com/runner/gitlab-runner/ubuntu xenial main
+
+    - name: Install Runner repository key
+      apt_key:
+        url: https://packages.gitlab.com/runner/gitlab-runner/gpgkey
+
+    - name: Install Runner
+      apt:
+        name: gitlab-runner
+        update_cache: yes
+
+    - name: Enable Runner
+      systemd:
+        name: gitlab-runner
+        state: started
+        enabled: yes
+
+    - name: Install Google Cloud SDK repository
+      apt_repository:
+        repo: deb http://packages.cloud.google.com/apt cloud-sdk-xenial main
+
+    - name: Install Google Cloud SDK repository key
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+
+    - name: Install Google Cloud SDK
+      apt:
+        name: google-cloud-sdk
+        update_cache: yes
+
+- name: Deploy Docker
+  hosts: gitlab-runner
+  gather_facts: no
+  become: true
+  tasks:
+    - name: Install Docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
+
+    - name: Install Docker repository key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        id: 0EBFCD88
+
+    - name: Install Docker
+      apt:
+        name: "{{ packages }}"
+        update_cache: yes
+      vars:
+        packages:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg-agent
+        - software-properties-common
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+        - python-pip
+
+    - name: Install docker-machine
+      get_url:
+        url: https://github.com/docker/machine/releases/download/v0.16.0/docker-machine-Linux-x86_64
+        dest: /usr/local/bin/docker-machine
+        mode: '0550'
+
+    - name: Enable Docker engine
+      systemd:
+        name: docker
+        state: started
+        enabled: yes

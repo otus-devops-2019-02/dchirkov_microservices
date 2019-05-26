@@ -1,0 +1,2 @@
+project = "docker-000000"
+disk_image = "ubuntu-1604-lts"
