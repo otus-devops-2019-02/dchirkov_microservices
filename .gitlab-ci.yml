@@ -8,19 +8,19 @@ stages:
 #  - stage
   - production
 
-#variables:
+variables:
 #  DATABASE_URL: 'mongodb://mongo/user_posts'
+  VERSION: '0.1'
 
-#before_script:
-#  - cd reddit
-#  - bundle install
+before_script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
 
 build_job:
   stage: build
   script:
-    - pwd
-    - ls -la
-    - docker build -t reddit:0.1 reddit/
+    - docker build -t reddit:$VERSION reddit/
+    - docker tag reddit:latest $CI_REGISTRY_USER/otus-reddit:$VERSION
+    - docker push $CI_REGISTRY_USER/otus-reddit:$VERSION
 
 #test_unit_job:
 #  stage: test
