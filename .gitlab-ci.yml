@@ -2,7 +2,7 @@
 image: docker:18.09.6
 
 stages:
-#  - build
+  - build
   - test
 #  - review
 #  - stage
@@ -11,17 +11,15 @@ stages:
 variables:
 #  DATABASE_URL: 'mongodb://mongo/user_posts'
   VERSION: '0.3'
+  REDDIT_IP: '35.195.46.237'
 
-#before_script:
-#  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
-
-#build_job:
-#  stage: build
-#  script:
-#    - docker build -t reddit:$VERSION reddit/
-#    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
-#    - docker tag reddit:$VERSION $CI_REGISTRY_USER/otus-reddit:$VERSION
-#    - docker push $CI_REGISTRY_USER/otus-reddit:$VERSION
+build_job:
+  stage: build
+  script:
+    - docker build -t reddit:$VERSION reddit/
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
+    - docker tag reddit:$VERSION $CI_REGISTRY_USER/otus-reddit:$VERSION
+    - docker push $CI_REGISTRY_USER/otus-reddit:$VERSION
 
 test_unit_job:
   stage: test
@@ -72,10 +70,9 @@ production:
 #    - /^\d+\.\d+\.\d+/
   when: manual
   script:
-    - 'which ssh-agent || ( apt-get install -qq openssh-client )'
     - eval $(ssh-agent -s)
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
-    - ssh -o "StrictHostKeyChecking=no" appuser@$REDDIT_IP sudo docker run --name reddit -d -p 9292:9292 $CI_REGISTRY_USER/otus-reddit:$VERSION
+    - ssh -o "StrictHostKeyChecking=no" appuser@$REDDIT_IP "sudo docker rm -f reddit && sudo docker run --name reddit -d -p 9292:9292 $CI_REGISTRY_USER/otus-reddit:$VERSION"
   environment:
     name: production
     url: http://$REDDIT_IP:9292
