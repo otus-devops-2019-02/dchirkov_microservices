@@ -1,24 +1,25 @@
-image: ruby:2.4.2
+#image: ruby:2.4.2
+image: docker:18.09.6
 
 stages:
   - build
-  - test
+#  - test
 #  - review
 #  - stage
   - production
 
-variables:
-  DATABASE_URL: 'mongodb://mongo/user_posts'
+#variables:
+#  DATABASE_URL: 'mongodb://mongo/user_posts'
 
 before_script:
   - cd reddit
-  - bundle install
+#  - bundle install
 
-#build_job:
-#  stage: build
-#  script:
-#    - echo 'Building'
-#
+build_job:
+  stage: build
+  script:
+    - docker build -t reddit:0.1 .
+
 #test_unit_job:
 #  stage: test
 #  services:
@@ -63,9 +64,9 @@ before_script:
 
 production:
   stage: production
-#  only:
-#    - /^\d+\.\d+\.\d+/
-#  when: manual
+  only:
+    - /^\d+\.\d+\.\d+/
+  when: manual
   script:
     - export SERVER_IP=35.195.106.41
     - export REPO_NAME=otus-devops-2019-02/dchirkov_microservices

@@ -29,22 +29,20 @@ $ cd gitlab-ci && docker-compose up -d
 
 ### Задание со *:
 
-
-*
+#### Сборка и деплой контейнера
+* Устанавливаем хост и все зависимости, где будет размещаться приложение reddit: 
 
 ```bash
 $ cd gitlab-ci
 $ terraform init terraform/
 $ terraform apply -var-file=terraform/terraform.tfvars terraform/
 $ ansible-playbook playbooks/reddit_req.yml
+reddit$ gpg2 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+reddit$ curl -sSL https://get.rvm.io | bash -s stable --rails
 ```
 
-
-
-
-
-
-
+* Делаем коммит в https://github.com/otus-devops-2019-02/dchirkov_microservices.git и в созданный GitLab, 
+запускается pipeline со сборкой, тестами и выкаткой в целевой хост reddit.
 
 #### Масштабирование Runners
 Лучший способ масштабирования Runners - это создание новых по-требованию (Runners autoscale)

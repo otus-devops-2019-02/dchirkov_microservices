@@ -11,6 +11,7 @@
       vars:
         packages:
           - mongodb-server
+          - gpg2
 
     - name: Enable Mongo DB
       systemd:
