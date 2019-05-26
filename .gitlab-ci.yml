@@ -13,6 +13,9 @@ variables:
   VERSION: '0.3'
   REDDIT_IP: '35.195.46.237'
 
+#before_script:
+#  - cd reddit
+
 build_job:
   stage: build
   script:
