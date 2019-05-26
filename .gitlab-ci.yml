@@ -64,11 +64,12 @@ before_script:
 
 production:
   stage: production
+  image: alpine:latest
 #  only:
 #    - /^\d+\.\d+\.\d+/
 #  when: manual
   script:
-    - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+#    - 'which ssh-agent || ( apt-get install -qq openssh-client )'
     - eval $(ssh-agent -s)
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - ssh appuser@$REDDIT_IP docker run --name reddit --d -p 9292:9292 $CI_REGISTRY_USER/otus-reddit:$VERSION
