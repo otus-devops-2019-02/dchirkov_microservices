@@ -1,4 +1,4 @@
-require_relative './app'
+require_relative '/reddit/app'
 require 'test/unit'
 require 'rack/test'
 
