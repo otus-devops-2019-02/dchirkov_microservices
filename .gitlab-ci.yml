@@ -19,7 +19,7 @@ build_job:
   stage: build
   script:
     - docker build -t reddit:$VERSION reddit/
-#    - docker tag reddit:latest $CI_REGISTRY_USER/otus-reddit:$VERSION
+    - docker tag reddit:$VERSION $CI_REGISTRY_USER/otus-reddit:$VERSION
     - docker push $CI_REGISTRY_USER/otus-reddit:$VERSION
 
 #test_unit_job:
