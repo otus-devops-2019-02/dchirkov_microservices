@@ -18,7 +18,9 @@ before_script:
 build_job:
   stage: build
   script:
-    - docker build -t reddit:0.1 .
+    - pwd
+    - ls -la
+#    - docker build -t reddit:0.1 .
 
 #test_unit_job:
 #  stage: test
