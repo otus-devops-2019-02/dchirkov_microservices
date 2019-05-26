@@ -15,10 +15,14 @@ variables:
 
 #before_script:
 #  - cd reddit
+#  - bundle install
 
 build_job:
   stage: build
+#  services:
+#    - mongo:latest
   script:
+#    - ruby simpletest.rb
     - docker build -t reddit:$VERSION reddit/
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
     - docker tag reddit:$VERSION $CI_REGISTRY_USER/otus-reddit:$VERSION
