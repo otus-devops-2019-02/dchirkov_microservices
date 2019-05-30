@@ -14,7 +14,7 @@ services:
           - mon_post_db
 
   ui:
-    image: ${USERNAME}/ui:${VERSION}
+    image: ${USER_NAME}/ui:${VERSION}
     ports:
       - 9292:9292/tcp
     networks:
@@ -24,7 +24,7 @@ services:
           - mon_ui
 
   post:
-    image: ${USERNAME}/post:${VERSION}
+    image: ${USER_NAME}/post:${VERSION}
     networks:
       front_net:
         aliases:
@@ -35,7 +35,7 @@ services:
           - mon_post
 
   comment:
-    image: ${USERNAME}/comment:${VERSION}
+    image: ${USER_NAME}/comment:${VERSION}
     networks:
       front_net:
         aliases:
@@ -46,7 +46,7 @@ services:
           - mon_comment
 
   prometheus:
-    image: ${USERNAME}/prometheus
+    image: ${USER_NAME}/prometheus
     ports:
       - '9090:9090'
     volumes:
@@ -77,7 +77,7 @@ services:
           - mon_node-exporter
 
   mongodb-exporter:
-    image: ${USERNAME}/mongodb-exporter:${VERSION}
+    image: ${USER_NAME}/mongodb-exporter:${VERSION}
     command:
       - '--mongodb.uri=mongodb://post_db:27017'
       - '--collect.database'
