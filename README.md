@@ -2,6 +2,51 @@
 
 # dchirkov_microservices
 
+## ДЗ к занятию 19
+
+### Сделано:
+
+* Изучен интерфейс prometheus
+* Сконфигурирован мониторинг сервисов ui, comment и prometheus, для этого выделена отдельная сеть и алиасы.
+* Создан docker-compose.yml для запуска приложения reddit и prometheus
+* Проверена корректность мониторинга с помощью остановки/запуска каждого микросервиса 
+* Установен node exporter для мониторинга метрик хоста
+
+Ссылка на собранные docker-образы:
+[https://hub.docker.com/u/daryan](https://hub.docker.com/u/daryan)
+
+### Задание со *:
+
+#### Мониторинг MongoDB
+Экспортер взят от компании Percona [mongodb_exporter](https://github.com/percona/mongodb_exporter)
+Сборка образа реализована посредством Makefile (см. ниже)
+```bash
+$ cd docker
+$ make build_mongodb_exporter
+$ make push_mongodb_exporter
+```
+
+#### Мониторинг ui, comment, post с помощью blackbox_exporter
+Экспортер взят с докерхаба prom/blackbox-exporter:master.
+Сервис ui мониторится модулем http_2xx. 
+Сервисы comment и ui мониторятся модулем icmp.
+
+#### Makefile для сборки и загрузки образов
+
+Написан docker/Makefile. Запуск сборки:
+```bash
+$ cd docker
+$ make build_${SERVICE}
+$ make build_all
+```
+
+Запуск выгрузки образов в репозиторий:
+```bash
+$ cd docker
+$ make push_${SERVICE}
+$ make push_all
+```
+
 ## ДЗ к занятию 18
 
 ### Сделано:
@@ -25,6 +70,11 @@ $ eval $(docker-machine env gitlab-ci)
 Установка GitLab: 
 ```bash
 $ cd gitlab-ci && docker-compose up -d
+```
+
+Регистрация runners для сборки образа в Docker:
+```bash
+$ gitlab-runner register --non-interactive --url "http://35.210.200.83/" --registration-token "Bx65sXMhdpFwsZt9kqMy" --executor "docker+machine" --docker-image alpine:latest --docker-volumes /var/run/docker.sock:/var/run/docker.sock --description "autoscaling-runners" --tag-list "docker,linux,ubuntu,xenial" --run-untagged="true" --locked="false" 
 ```
 
 ### Задание со *:
@@ -96,8 +146,8 @@ concurrent = 10
 $ systemctl restart gitlab-runner.service
 ```
 
-В итоге при запуске stage с 2 job получаем 2 инстанса (и 2 в ожидании):
-![stage_with_2_jobs](https://user-images.githubusercontent.com/633539/58326683-3ee46500-7e36-11e9-896a-2a234d892ba6.png)
+В итоге при запуске stage с 3 job получаем 3 инстанса (и 1 в ожидании):
+![stage_with_3_jobs](https://user-images.githubusercontent.com/633539/58326683-3ee46500-7e36-11e9-896a-2a234d892ba6.png)
 
 #### Интеграция со Slack
 * Настроена интеграция Gitlab со Slack [dmitry_chirkov](https://devops-team-otus.slack.com/messages/CH12BCSSX/)
