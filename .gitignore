@@ -6,4 +6,3 @@
 variables.json
 .DS_Store
 *.env
-docker-compose.*
