@@ -1,0 +1,106 @@
+version: '3.3'
+services:
+  prometheus:
+    image: ${USER_NAME}/prometheus
+    ports:
+      - '9090:9090'
+    volumes:
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention=1d'
+    networks:
+      mon_net:
+        aliases:
+          - mon_prometheus
+
+  node-exporter:
+    image: prom/node-exporter:v0.18.0
+    user: root
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
+    networks:
+      mon_net:
+        aliases:
+          - mon_node-exporter
+
+  mongodb-exporter:
+    image: ${USER_NAME}/mongodb-exporter:${VERSION}
+    command:
+      - '--mongodb.uri=mongodb://post_db:27017'
+      - '--collect.database'
+      - '--collect.collection'
+      - '--collect.topmetrics'
+    networks:
+      mon_net:
+        aliases:
+          - mon_mongodb-exporter
+
+  blackbox-exporter:
+    image: prom/blackbox-exporter:master
+    user: root
+    ports:
+      - '9115:9115'
+    networks:
+      mon_net:
+        aliases:
+          - mon_blackbox-exporter
+
+  cadvisor:
+    image: google/cadvisor:v0.33.0
+    volumes:
+      - '/:/rootfs:ro'
+      - '/var/run:/var/run:rw'
+      - '/sys:/sys:ro'
+      - '/var/lib/docker/:/var/lib/docker:ro'
+    ports:
+      - '8080:8080'
+    networks:
+      mon_net:
+        aliases:
+          - mon_cadvisor
+
+  grafana:
+    image: grafana/grafana:6.2.1
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=secret
+    depends_on:
+      - prometheus
+    ports:
+      - 3000:3000
+    networks:
+      mon_net:
+        aliases:
+          - mon_grafana
+
+  alertmanager:
+    image: ${USER_NAME}/alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/config.yml'
+    ports:
+      - 9093:9093
+    networks:
+      mon_net:
+        aliases:
+          - mon_alertmanager
+
+volumes:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  mon_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.3.0/24
