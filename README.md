@@ -2,6 +2,32 @@
 
 # dchirkov_microservices
 
+## ДЗ к занятию 20
+
+### Сделано:
+
+* Настроен сониторинг контейнеров с помощью cAdvisor
+* Для визуализации метрик установлена Grafana
+* Созданы панели отображения метрик
+* Установлен Alertmanager и создано правило оповещения о недоступности сервисов, оповещения приходят в 
+Slack ([dmitry_chirkov](https://devops-team-otus.slack.com/messages/CH12BCSSX/)) 
+
+Ссылка на собранные docker-образы:
+[https://hub.docker.com/u/daryan](https://hub.docker.com/u/daryan)
+
+### Задание со *:
+
+### Сделано:
+
+* Добавлены новые сервисы в Makefile
+* Добавлен мониторинг встроенными средствами Docker:
+  ```bash
+  $ docker-machine scp /monitoring/docker-native/daemon.json docker-host:/tmp
+  $ docker-machine ssh docker-host sudo cp /tmp/daemon.json /etc/docker/
+  $ docker-machine ssh docker-host sudo systemctl restart docker
+  ```
+  Панель отображения: monitoring/grafana/dashboards/Docker_daemon_container_states_containers.json
+
 ## ДЗ к занятию 19
 
 ### Сделано:

@@ -1,6 +1,6 @@
 USER_NAME=daryan
 
-build_all: build_ui build_post build_comment build_prometheus build_mongodb_exporter
+build_all: build_ui build_post build_comment build_prometheus build_mongodb_exporter build_alertmanager
 push_all: push_ui push_post push_comment push_prometheus push_mongodb_exporter
 
 build_ui: ../src/ui/Dockerfile
@@ -19,6 +19,9 @@ build_mongodb_exporter:
 	rm -rf /tmp/mongodb_exporter && cd /tmp && git clone https://github.com/percona/mongodb_exporter.git
 	cd /tmp/mongodb_exporter && make docker DOCKER_IMAGE_NAME="$(USER_NAME)/mongodb-exporter" DOCKER_IMAGE_TAG="latest"
 
+build_alertmanager: ../monitoring/alertmanager/Dockerfile
+	docker build -t $(USER_NAME)/alertmanager ../monitoring/alertmanager
+
 push_ui:
 	docker push $(USER_NAME)/ui
 
@@ -33,5 +36,8 @@ push_prometheus:
 
 push_mongodb_exporter:
 	docker push $(USER_NAME)/mongodb-exporter
+
+push_alertmanager:
+	docker push $(USER_NAME)/alertmanager
 
 .PHONY: build_all push_all
