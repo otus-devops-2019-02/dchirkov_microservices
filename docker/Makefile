@@ -1,4 +1,4 @@
-USER_NAME=daryan
+export USER_NAME=daryan
 
 build_all: build_ui build_post build_comment build_prometheus build_mongodb_exporter build_alertmanager
 push_all: push_ui push_post push_comment push_prometheus push_mongodb_exporter
