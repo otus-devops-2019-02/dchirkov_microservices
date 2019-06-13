@@ -3,6 +3,13 @@
 # dchirkov_microservices
 
 
+## ДЗ к занятию 22
+
+### Сделано:
+
+* Созданы манифесты нашего приложения (4 сервиса) в контексте kubernetes
+* Установлен kubernates "с нуля" [Kubernetes The Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way)
+
 ## ДЗ к занятию 21
 
 ### Сделано:
