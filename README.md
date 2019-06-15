@@ -3,6 +3,14 @@
 # dchirkov_microservices
 
 
+## ДЗ к занятию 23
+
+### Сделано:
+
+* Развернуто локальное окружение kubernates с помощью minikube
+* Развернут kubernates в GKE
+* Запущен reddit в Kubernates
+
 ## ДЗ к занятию 22
 
 ### Сделано:
