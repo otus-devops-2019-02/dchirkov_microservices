@@ -3,6 +3,34 @@
 # dchirkov_microservices
 
 
+## ДЗ к занятию 24
+
+### Сделано:
+
+* Рассмотрена работа сервисов:
+  * ClusetrIP
+  * NodePort
+  * LoadBalancer
+* Рассмотрена работа плагинов:
+  * kube-dns
+  * Ingress Controller (балансировщик L4 или L7, TLS терминация) 
+* Рассмотрены сетевые политики 
+* Рассмотрено хранилище для базы в виде:
+  * классический том kubernetes emptyDir
+  * внешний том GCP
+  * PersistentVolume
+  * PersistentVolume из разных StorageClass (PersistentVolumeClaim)
+
+
+### Задание со *:
+
+* Описан создаваемый объект Secret в виде Kubernetes-манифеста ui-secret.yml.
+  В качестве tls.crt и tls.key были взяты выводы команд:
+  ```bash
+  $ cat tls.crt | base64
+  $ cat tls.key | base64
+  ```
+
 ## ДЗ к занятию 23
 
 ### Сделано:
