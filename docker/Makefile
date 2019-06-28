@@ -6,7 +6,7 @@ push_all: push_ui push_post push_comment push_prometheus push_mongodb_exporter
 build_ui: ../src/ui/Dockerfile
 	cd ../src/ui/ && ./docker_build.sh
 
-build_post: ../src/post-py/Dockerfile
+build_post: ../src/post
 	cd ../src/post-py/ && ./docker_build.sh
 
 build_comment: ../src/comment/Dockerfile
