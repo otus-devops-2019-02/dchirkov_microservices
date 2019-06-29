@@ -2,6 +2,13 @@
 
 # dchirkov_microservices
 
+## ДЗ к занятию 29
+
+### Сделано:
+
+* Развернут Prometheus в kubernetes
+* Настроен Prometheus и Grafana для сбора метрик
+* Настроен EFK для сбора логов
 
 ## ДЗ к занятию 28
 
@@ -11,7 +18,7 @@
 * Развернут Gitlab в Kubernetes
 * Запущены CI/CD конвейеры в Kubernetes
 
-## ДЗ к занятию 24
+## ДЗ к занятию 27
 
 ### Сделано:
 
@@ -39,7 +46,7 @@
   $ cat tls.key | base64
   ```
 
-## ДЗ к занятию 23
+## ДЗ к занятию 26
 
 ### Сделано:
 
@@ -47,14 +54,14 @@
 * Развернут kubernates в GKE
 * Запущен reddit в Kubernates
 
-## ДЗ к занятию 22
+## ДЗ к занятию 25
 
 ### Сделано:
 
 * Созданы манифесты нашего приложения (4 сервиса) в контексте kubernetes
 * Установлен kubernates "с нуля" [Kubernetes The Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way)
 
-## ДЗ к занятию 21
+## ДЗ к занятию 23
 
 ### Сделано:
 
@@ -66,7 +73,7 @@
 * Написан фильтр для парсинга неструктурированных логов
 * Установлен zipkin для распределенного трейсинга, проблема с тормозами не решена
 
-## ДЗ к занятию 20
+## ДЗ к занятию 21
 
 ### Сделано:
 
@@ -92,7 +99,7 @@ Slack ([dmitry_chirkov](https://devops-team-otus.slack.com/messages/CH12BCSSX/))
   ```
   Панель отображения: monitoring/grafana/dashboards/Docker_daemon_container_states_containers.json
 
-## ДЗ к занятию 19
+## ДЗ к занятию 20
 
 ### Сделано:
 
@@ -137,7 +144,7 @@ $ make push_${SERVICE}
 $ make push_all
 ```
 
-## ДЗ к занятию 18
+## ДЗ к занятию 19
 
 ### Сделано:
 
