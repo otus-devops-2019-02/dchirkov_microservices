@@ -3,6 +3,14 @@
 # dchirkov_microservices
 
 
+## ДЗ к занятию 28
+
+### Сделано:
+
+* Написаны Helm Chart для приложения
+* Развернут Gitlab в Kubernetes
+* Запущены CI/CD конвейеры в Kubernetes
+
 ## ДЗ к занятию 24
 
 ### Сделано:
